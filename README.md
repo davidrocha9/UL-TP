@@ -93,7 +93,7 @@ For the **E-Medicare** system, consider the user stories that are presented in t
 | US401      | View Dashboard        | high     | As a *Doctor*, I want to be able to view the Dashboard Page, so I can be updated on possible new appointments and messages |
 | US404      | View Booked Patient's Profile     | high     | As a *Doctor*, I want to be able to view any Doctor's Profile, so that I can be more informed about them |
 | US405      | Send Messages to Patients     | high     | As a *Doctor*,  I want to be able to send a message to a Patient concerning a specific matter |
-| US405      | Consult FAQ      | medium   | As a *User*, I want to be able to access the FAQ Page, so
+| US405      | Consult FAQ      | medium   | As a *Doctor*, I want to be able to access the FAQ Page, so
 
 *Table 5 - User's user stories*
 
@@ -107,9 +107,9 @@ This annex contains business rules, technical requirements and other non-functio
 A business rule defines or constrains one aspect of the business, with the intention of asserting business structure or influencing business behavior.
 
 | Identifier | **Name**                | Description                                                  |
-| ---------- | ----------------------- | ------------------------------------------------------------ |               |
-| BR01       | User Deleted            | Whenever a User is deleted all its respective appointments and Personal Information must be deleted as well |
-| BR02       | Delete Appointment          | Whenever an appointment is deleted, the Doctor's schedule should be changed |
+| ---------- | ----------------------- | ------------------------------------------------------------ |
+| BR01       | User Deleted      |  Whenever a User is deleted all its respective appointments and Personal Information must be deleted as well |
+| BR02       | Delete Appointment | Whenever an appointment is deleted, the Doctor's schedule should be changed                      |
 | BR03       | Appointment Date            | An appointment's date must always be equal or greater than the current date |
 
 #### 3.2. Technical requirements
