@@ -15,7 +15,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Carousel from 'react-elastic-carousel';
 import { DoctorCard } from '../partials/Card';
-import doctor1 from '../assets/doctor1.png';
 import doctor2 from '../assets/doctor2.png';
 import doctor3 from '../assets/doctor3.png';
 
@@ -57,9 +56,8 @@ export function MostPopularHospitals() {
                     <p style={{fontSize : '1.5rem', color:'#666666'}}>92% of patients gave these hospitals 5 stars</p>
                 </Grid>
                 <Grid item xs={0.1} />
-                <Grid item xs={9} style={{padding: '0px'}}>
-                    <Carousel breakPoints={breakPoints} >
-                        <DoctorCard name="Dr. Olaf Szymański" job="Primary Care Doctor" city="Wroclaw" score="4.72" nr_reviews="869" review="Doctor Olaf is very attentive and really understood my issues." img={doctor1}/>
+                <Grid item xs={8.9} style={{padding: '0px'}}>
+                    <Carousel breakPoints={breakPoints}>
                         <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="The best oncologist in Krakow." img={doctor2} />
                         <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="Doctor Olaf is very attentive and really understood my issues." img={doctor3} />
                         <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="The best oncologist in Krakow." img={doctor2} />

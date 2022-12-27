@@ -15,9 +15,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Carousel from 'react-elastic-carousel';
 import { DoctorCard } from '../partials/Card';
-import doctor1 from '../assets/doctor1.png';
-import doctor2 from '../assets/doctor2.png';
-import doctor3 from '../assets/doctor3.png';
+import {useState,useEffect} from 'react';
+import {firestore, storage} from '../firebase/config';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Switch,
+    Route,
+    Link,
+    useParams,
+    useRouteMatch
+  } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -30,7 +38,22 @@ const Item = styled(Paper)(({ theme }) => ({
 const ariaLabel = { 'aria-label': 'description' };
 
 export function MostPopular() {
-    const [value, setValue] = React.useState(null);
+    const [doctors, setDoctors] = React.useState([]);
+
+    const fetchDoctors = async () => {
+        const response = firestore.collection('doctors');
+        const req = await response.get();
+        
+        const tempDoctors = req.docs.map((doc) => {
+            return {...doc.data(), id: doc.id};
+        });
+
+        setDoctors(tempDoctors); 
+    }
+
+    React.useEffect(() => {
+        fetchDoctors();
+    }, []);
 
     const breakPoints = [
         {width: 500, itemsToShow: 2},
@@ -40,6 +63,7 @@ export function MostPopular() {
     ];
 
     return (
+
         <Box sx={{ flexGrow: 1, display: 'flex', height: '100%', paddingRight: "5vw", paddingLeft: "5vw", paddingBottom: "5vw"}}>
             <Grid container spacing={0} sx={{height: "100%", display: "flex", alignItems: "center", boxShadow : "0px"}}>
                 <Grid item xs={3}>
@@ -49,14 +73,19 @@ export function MostPopular() {
                 </Grid>
                 <Grid item xs={0.1} />
                 <Grid item xs={8.9} style={{padding: '0px'}}>
-                    <Carousel breakPoints={breakPoints} >
-                        <DoctorCard name="Dr. Olaf Szymański" job="Primary Care Doctor" city="Wroclaw" score="4.72" nr_reviews="869" review="Doctor Olaf is very attentive and really understood my issues." img={doctor1}/>
-                        <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="The best oncologist in Krakow." img={doctor2} />
-                        <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="Doctor Olaf is very attentive and really understood my issues." img={doctor3} />
-                        <DoctorCard name="Dr. Cezary Laskowski" job="Dentist" city="Warsaw" score="4.62" nr_reviews="183" review="The best oncologist in Krakow." img={doctor2} />
+                    <Carousel breakPoints={breakPoints}>
+                        {doctors.map((doctor) => {
+                            return (
+                                <Link to={"/doctor/" + doctor.id}>
+                                    <DoctorCard name={doctor.name} job={doctor.primary_care} city={doctor.city} score={doctor.score} nr_reviews={doctor.nr_reviews} review="Doctor Olaf is very attentive and really understood my issues." img={doctor.profile_picture}/>
+                                </Link>
+                            );
+                        }
+                        )}
                     </Carousel>
                 </Grid>
             </Grid>
         </Box>
+        
   );
 }
