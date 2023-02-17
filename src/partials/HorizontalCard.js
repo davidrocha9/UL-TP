@@ -80,7 +80,7 @@ export function HorizontalCard(props) {
                     </MDBRow>
                 </MDBRow>
                 <Link to={"/doctor/" + props.id}>
-                    <button type="button" class="btn btn-primary" style={{float: "right"}}>CHECK THEM OUT</button>
+                    <button type="button" className="btn btn-primary" style={{float: "right"}}>CHECK THEM OUT</button>
                 </Link>
                 </MDBCardBody>
             </MDBCard>

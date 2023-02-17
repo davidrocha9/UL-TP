@@ -13,7 +13,7 @@ export function Home() {
         <SearchBar></SearchBar>
         <div style={{height : '20px'}}></div>
         <MostPopular></MostPopular>
-        <MostPopularHospitals></MostPopularHospitals>
+        {/*<MostPopularHospitals></MostPopularHospitals>*/}
     </>
     );
 }

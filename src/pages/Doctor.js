@@ -12,7 +12,7 @@ import {
     Switch,
     Link,
     useRouteMatch
-  } from "react-router-dom";
+} from "react-router-dom";
 
 import {
     MDBCol,
@@ -42,8 +42,8 @@ export function Doctor() {
     const [doctor, setDoctor] = React.useState([]);
     const [image, setImage] = React.useState([]);
     const [reviews, setReviews] = React.useState([]);
-    const [workplace, setWorkplace] = React.useState([]);
-    const [workplaceID, setWorkplaceID] = React.useState([]);
+    const [hospital, setHospital] = React.useState([]);
+    const [hospitalID, setHospitalID] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
     const fetchDoctors = async () => {
@@ -53,7 +53,7 @@ export function Doctor() {
                 console.log(snapshot.data())
                 getImage(snapshot.data().profile_picture);
                 fetchReviews();
-                getWorkplace(snapshot.data().workplace);
+                getHospital(snapshot.data().hospital);
             }
         })
     }
@@ -66,13 +66,13 @@ export function Doctor() {
         setImage(url);
     }
 
-    const getWorkplace = async (workplace) => {
-        const docRef = doc(firestore, "workplaces", workplace);
+    const getHospital = async (hospital) => {
+        const docRef = doc(firestore, "hospitals", hospital);
 
         try {
             const docSnap = await getDoc(docRef);
-            setWorkplaceID(docSnap.id)
-            setWorkplace(docSnap.data());
+            setHospitalID(docSnap.id)
+            setHospital(docSnap.data());
             setIsLoading(false);
         } catch(error) {
             console.log(error)
@@ -151,12 +151,12 @@ export function Doctor() {
                 <hr />
                 <MDBRow>
                     <MDBCol sm="4">
-                    <MDBCardText>Workplace</MDBCardText>
+                    <MDBCardText>Hospital</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="8">
                     <MDBCardText className="text-muted">
-                        <Link to={"/workplace/" + workplaceID}>
-                            {workplace.name}
+                        <Link to={"/hospital/" + hospitalID}>
+                            {hospital.name}
                         </Link>
                     </MDBCardText>
                     </MDBCol>

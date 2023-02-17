@@ -14,7 +14,7 @@ export function DoctorCard(props) {
 
     const getImage = async () => {
         const images = storage.ref().child('doctors');
-        const image = images.child('doctor1.png');
+        const image = images.child(props.img);
         const url = await image.getDownloadURL();
 
         setImage(url);
@@ -23,24 +23,20 @@ export function DoctorCard(props) {
     React.useEffect(() => {
         getImage(props.img);
     }, []);
-    
-    let navigate = useNavigate(); 
-    const routeChange = () =>{ 
-        let path = `newPath`; 
-        navigate(path);
-    }
 
     return (
-            <Card sx={{ maxWidth: 345 }} id="card" style={{textAlign: 'center', borderRadius : '10px'}}>
-                <CardActionArea style={{width : '300px', height : '350px', padding: '10px'}}>
-                    <CardMedia
-                        id="doctor-img"
-                        component="img"
-                        image={image}
-                        alt={props.name}
-                        style = {{margin: '0 auto'}}
-                    />
+            <Card id="card" style={{textAlign: 'center', borderRadius : '10px', width: "300px", height: "350px"}}>
+                <CardActionArea style={{width: "300px", height: "350px"}}>
                     <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            <CardMedia
+                            id="doctor-img"
+                            component="img"
+                            image={image}
+                            alt={props.name}
+                            style={{margin: "0 auto", borderRadius: "50%!important"}}
+                            />
+                        </Typography>
                         <Typography gutterBottom variant="h5" component="div">
                             {props.name}
                         </Typography>
@@ -56,7 +52,7 @@ export function DoctorCard(props) {
                             </div>
                             <div style={{display : 'flex'}}>
                                 <div style={{fontSize : '1rem'}}>
-                                    {props.score}
+                                    {props.score.toFixed(1)}
                                 </div>
                                 <div style={{fontSize : '0.7rem', marginTop : '4px', marginLeft : '5px'}}>
                                     ({props.nr_reviews} reviews)

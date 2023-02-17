@@ -36,21 +36,21 @@ import {firestore, storage} from '../firebase/config';
 import { useParams } from 'react-router-dom';
 import { snackbarClasses } from '@mui/material';
 
-export function Workplace() {
+export function Hospital() {
     // get id param
     const { id } = useParams();
 
     const [doctors, setDoctors] = React.useState([]);
     const [image, setImage] = React.useState([]);
     const [reviews, setReviews] = React.useState([]);
-    const [workplace, setWorkplace] = React.useState([]);
-    const [workplaceID, setWorkplaceID] = React.useState([]);
+    const [hospital, setHospital] = React.useState([]);
+    const [hospitalID, setHospitalID] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     
-    const fetchWorkplace = async () => {
-        firestore.collection('workplaces').doc(id).get().then((snapshot) => {
+    const fetchHospital = async () => {
+        firestore.collection('hospitals').doc(id).get().then((snapshot) => {
             if (snapshot) {
-                setWorkplace(snapshot.data())
+                setHospital(snapshot.data())
                 getImage(snapshot.data().picture);
                 fetchDoctors();
                 setIsLoading(false);
@@ -60,7 +60,7 @@ export function Workplace() {
 
     const fetchDoctors = async () => {
         // get reviews for doctor        
-        const response = firestore.collection('doctors').where("workplace", "==", id);
+        const response = firestore.collection('doctors').where("hospital", "==", id);
         const req = await response.get();
 
         const tempDoctors = req.docs.map((doc) => {
@@ -71,7 +71,7 @@ export function Workplace() {
     }
 
     const getImage = async (img_path) => {
-        const images = storage.ref().child('workplaces');
+        const images = storage.ref().child('hospitals');
         console.log(img_path);
         const image = images.child(img_path);
         const url = await image.getDownloadURL();
@@ -80,7 +80,7 @@ export function Workplace() {
     }
 
     React.useEffect(() => {
-        fetchWorkplace();
+        fetchHospital();
     }, []);
 
     if (!isLoading) {
@@ -98,7 +98,7 @@ export function Workplace() {
                     className="rounded-circle"
                     style={{ width: '150px', height: "150px"}}
                     fluid />
-                <p className="text-muted mb-1" style={{fontSize: "1.5rem", paddingTop: "20px"}}>{workplace.name}</p>
+                <p className="text-muted mb-1" style={{fontSize: "1.5rem", paddingTop: "20px"}}>{hospital.name}</p>
                 </MDBCardBody>
             </MDBCard>
 
@@ -109,7 +109,7 @@ export function Workplace() {
                     <MDBCardText>Email</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="8">
-                    <MDBCardText className="text-muted">{workplace.email}</MDBCardText>
+                    <MDBCardText className="text-muted">{hospital.email}</MDBCardText>
                     </MDBCol>
                 </MDBRow>
                 <hr />
@@ -118,7 +118,7 @@ export function Workplace() {
                     <MDBCardText>Phone</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="8">
-                    <MDBCardText className="text-muted">{workplace.phone}</MDBCardText>
+                    <MDBCardText className="text-muted">{hospital.phone}</MDBCardText>
                     </MDBCol>
                 </MDBRow>
                 <hr />
@@ -127,7 +127,7 @@ export function Workplace() {
                     <MDBCardText>Address</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="8">
-                    <MDBCardText className="text-muted">{workplace.address}</MDBCardText>
+                    <MDBCardText className="text-muted">{hospital.address}</MDBCardText>
                     </MDBCol>
                 </MDBRow>
                 </MDBCardBody>

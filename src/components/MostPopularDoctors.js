@@ -17,6 +17,9 @@ import Carousel from 'react-elastic-carousel';
 import { DoctorCard } from '../partials/Card';
 import {useState,useEffect} from 'react';
 import {firestore, storage} from '../firebase/config';
+import "react-multi-carousel/lib/styles.css";
+import { Fragment } from "react";
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -71,13 +74,13 @@ export function MostPopular() {
                     <p style={{fontSize : '1.5rem', color:'#666666'}}>87% of patients gave these doctors 5 stars</p>
                     <p style={{fontSize : '1rem', color:'#666666', textDecoration: 'underline'}}>See all most popular doctors</p>
                 </Grid>
-                <Grid item xs={0.1} />
-                <Grid item xs={8.9} style={{padding: '0px'}}>
+                <Grid item xs={0.5} />
+                <Grid item xs={8.5} style={{padding: '0px'}}>
                     <Carousel breakPoints={breakPoints}>
                         {doctors.map((doctor) => {
                             return (
                                 <Link to={"/doctor/" + doctor.id}>
-                                    <DoctorCard name={doctor.name} job={doctor.primary_care} city={doctor.city} score={doctor.score} nr_reviews={doctor.nr_reviews} review="Doctor Olaf is very attentive and really understood my issues." img={doctor.profile_picture}/>
+                                    <DoctorCard name={doctor.name} job={doctor.primary_care} city={doctor.city} score={doctor.score} nr_reviews={doctor.nr_reviews} img={doctor.profile_picture}/>
                                 </Link>
                             );
                         }
